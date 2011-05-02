@@ -11,4 +11,4 @@
     :components ((:file "package")
 		 (:file "xml")
 		 (:file "rss2"))
-    :depends-on (cl-utilities))
+    :depends-on (:cl-utilities))
