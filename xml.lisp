@@ -38,10 +38,11 @@
 
 (defun write-escaped (string stream)
   "Writes string to stream with all character entities escaped."
-  (coerce string 'simple-base-string)
-  (loop for char across string
-        for esc = (svref *char-escapes* (char-code char))
-        do (write-sequence esc stream)))
+  (loop
+     for char across string
+     do (if (< (char-code char) 256)
+	    (write-sequence (svref *char-escapes* (char-code char)) stream)
+	    (format stream "&#x~x;" (char-code char)))))
 
 ;; Low-level XML output
 ;;;;;;;;;;;;;;;;;;;;;;;
